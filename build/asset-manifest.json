@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/telecoin_v2/static/css/main.ed1ebd3f.css",
+    "main.css": "/telecoin_v2/static/css/main.08c29262.css",
     "main.js": "/telecoin_v2/static/js/main.fb3687b7.js",
     "static/js/453.ed3810f9.chunk.js": "/telecoin_v2/static/js/453.ed3810f9.chunk.js",
     "index.html": "/telecoin_v2/index.html",
-    "main.ed1ebd3f.css.map": "/telecoin_v2/static/css/main.ed1ebd3f.css.map",
+    "main.08c29262.css.map": "/telecoin_v2/static/css/main.08c29262.css.map",
     "main.fb3687b7.js.map": "/telecoin_v2/static/js/main.fb3687b7.js.map",
     "453.ed3810f9.chunk.js.map": "/telecoin_v2/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ed1ebd3f.css",
+    "static/css/main.08c29262.css",
     "static/js/main.fb3687b7.js"
   ]
 }

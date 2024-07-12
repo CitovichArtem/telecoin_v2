@@ -249,7 +249,7 @@ div.Strip{
     width: 90%;
     filter: blur(1px);
     padding-bottom: 100px;
-    display: none;
+
 }
 
 @keyframes clickAnimation {
