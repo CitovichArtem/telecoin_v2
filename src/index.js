@@ -4,7 +4,7 @@ import './css/main.css';
 import App from './App';
 import './components/Header.js';
 import reportWebVitals from './reportWebVitals';
-import arr from './resourses.js';
+import arr, {saveToLocalStorage} from './resourses.js';
 
 const app = ReactDOMClient.createRoot(document.getElementById('app')) 
 app.render(<App/>)
@@ -56,6 +56,7 @@ document.getElementById('app').addEventListener('click', function(event) {
             number8.style.left = x + 'px';
             number8.style.top = y + 'px';
             arr.set('balance', bal);
+            saveToLocalStorage();
             console.log(arr.get('balance'));
             document.body.appendChild(number8);
 

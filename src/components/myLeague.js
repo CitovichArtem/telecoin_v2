@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
+import arr from '../resourses.js';
 class MyLeague extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            MyLeague: "Grandmaster",
-            MyLevel: 9,
+            MyLeague: arr.get('myLeague'),
+            MyLevel: 1,
         }
     }
     render() {
