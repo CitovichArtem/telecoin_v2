@@ -1,12 +1,6 @@
 
 let leagues = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic', 'Legendary', 'Master', 'Grandmaster', 'Lord', 'Creator'];
-// console.log(leagues[0]);
-// arr
-//     .set('balance','10000')
-//     .set('profitTap','1')
-//     .set('moneyToUp','25000')
-//     .set('profitHour','0')
-//     .set('myLeague', 'Bronze');
+
 let arr;    
 let arrString = localStorage.getItem('arr');
 console.log(arrString);

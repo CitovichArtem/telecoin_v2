@@ -9,7 +9,7 @@ import arr, {saveToLocalStorage} from './resourses.js';
 const app = ReactDOMClient.createRoot(document.getElementById('app')) 
 app.render(<App/>)
 
-
+window.updateBalance = null;
 let mask = document.getElementById('mask');
 
 window.addEventListener('load', () => {
@@ -64,6 +64,10 @@ document.getElementById('app').addEventListener('click', function(event) {
             number8.addEventListener('animationend', function() {
                 document.body.removeChild(number8);
             });
+
+            if (window.updateBalance) {
+                window.updateBalance();
+            }
         }
     }
     

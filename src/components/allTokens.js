@@ -9,6 +9,18 @@ class AllTokens extends React.Component {
         }
     }
 
+    updateBalance = () => {
+        this.setState({
+            allTokens: arr.get('balance'),
+        });
+    }
+    componentDidMount() {
+        window.updateBalance = this.updateBalance;
+    }
+
+    componentWillUnmount() {
+        window.updateBalance = null;
+    }
 
     render() {
         return(
