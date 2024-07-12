@@ -734,7 +734,14 @@ div.Strip{
     display: flex;
     flex-direction: column;
 }
-
+.GamePageCont{
+    background: url('img/prew.png');
+    backdrop-filter: blur(3px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .GamePage::-webkit-scrollbar, .MinePage::-webkit-scrollbar{
     width: 0px;
 }
