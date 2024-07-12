@@ -233,11 +233,28 @@ div.Strip{
     justify-content: center;
     align-items: center;
     position: relative;
-    cursor: pointer;
+    cursor: none;
     text-align: center;
     font-size: 24px;
     color: #333;
     width: 90%;
+}
+
+.clickAnim {
+    animation: clickAnimation 0.3s ease-in-out forwards;
+
+}
+
+@keyframes clickAnimation {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
 }
 .number-8 {
     position: absolute;

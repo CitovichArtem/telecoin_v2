@@ -30,6 +30,7 @@ document.getElementById('app').addEventListener('click', function(event) {
     var y = event.clientY;
     if(document.getElementById('myBody')){
         var img = document.getElementById('clickableArea');
+        var tapcoin = document.getElementById('TapCoin');
         var width = img.offsetWidth;
         var height = img.offsetHeight;
 
@@ -58,13 +59,16 @@ document.getElementById('app').addEventListener('click', function(event) {
             arr.set('balance', bal);
             saveToLocalStorage();
             console.log(arr.get('balance'));
+            tapcoin.classList.add('clickAnim');
             document.body.appendChild(number8);
-
+            function deleteClass(){
+                tapcoin.classList.remove('clickAnim')
+            }
             // Удаляем элемент после завершения анимации
             number8.addEventListener('animationend', function() {
                 document.body.removeChild(number8);
             });
-
+            setTimeout(deleteClass, 300);
             if (window.updateBalance) {
                 window.updateBalance();
             }

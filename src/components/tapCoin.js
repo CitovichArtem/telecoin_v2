@@ -10,7 +10,7 @@ class TapCoin extends React.Component {
     }
     render() {
         return(
-            <section className='TapCoin'>
+            <section id='TapCoin' className='TapCoin'>
                 <img id="clickableArea"  className='clickableArea' src='img/telecoin.png'/>
                 
             </section>
