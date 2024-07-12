@@ -18,9 +18,9 @@
 #loader{
     width: 75px;
     height: 75px;
-    border: 10px solid rgba(13, 71, 161, 0.6);
+    border: 8px solid rgba(1, 36, 88, 0.6);
     border-radius: 50%;
-    border-left-color: #0D47A1;
+    border-left-color: #053781;
     animation: loader 1.3s linear infinite;
 }
 .hide{
