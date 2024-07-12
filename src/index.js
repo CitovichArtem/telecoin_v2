@@ -4,6 +4,7 @@ import './css/main.css';
 import App from './App';
 import './components/Header.js';
 import reportWebVitals from './reportWebVitals';
+import arr from './resourses.js';
 
 const app = ReactDOMClient.createRoot(document.getElementById('app')) 
 app.render(<App/>)
@@ -44,14 +45,18 @@ document.getElementById('app').addEventListener('click', function(event) {
 
 
         if( (x-centerX)**2+(y-centerY)**2 <= 125**2){
-            
+            let bal = parseInt(arr.get('balance'));
+            console.log(bal);
+            bal++;
+            console.log(bal);
             console.log("found" +x + " " + y);
             var number8 = document.createElement('div');
             number8.className = 'number-8';
-            number8.textContent = '+19';
+            number8.textContent = `+${arr.get('profitTap')}`;
             number8.style.left = x + 'px';
             number8.style.top = y + 'px';
-
+            arr.set('balance', bal);
+            console.log(arr.get('balance'));
             document.body.appendChild(number8);
 
             // Удаляем элемент после завершения анимации

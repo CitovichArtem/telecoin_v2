@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import arr from '../resourses.js';
 
 class Statistics extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            clickProfit: "+19",
-            moneyToUp: "1B",
-            hourProfit: "+865,47K",
+            clickProfit: arr.get('profitTap'),
+            moneyToUp: arr.get('moneyToUp'),
+            hourProfit: arr.get('profitHour'),
             firstTip: "Подсказка 1",
             secondTip: "Подсказка 2",
             thirdTip: "Подсказка 3"

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
+import arr from '../resourses.js';
 class AllTokens extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allTokens: 793638451,
+            allTokens: arr.get('balance'),
         }
     }
 
