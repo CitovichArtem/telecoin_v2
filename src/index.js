@@ -45,18 +45,20 @@ document.getElementById('app').addEventListener('click', function(event) {
         console.log("centerXy" + centerX + " " + centerY);
 
 
-        if( (x-centerX)**2+(y-centerY)**2 <= 125**2){
+        if( ((x-centerX)**2+(y-centerY)**2 <= 125**2) &&(parseInt(arr.get('energy')) >= parseInt(arr.get('profitTap')))){
             let bal = parseInt(arr.get('balance'));
-            console.log(bal);
-            bal++;
-            console.log(bal);
-            console.log("found" +x + " " + y);
+            let ener = parseInt(arr.get('energy'));
+
+            bal = bal + parseInt(arr.get('profitTap'));
+            ener = ener - parseInt(arr.get('profitTap'));
+
             var number8 = document.createElement('div');
             number8.className = 'number-8';
             number8.textContent = `+${arr.get('profitTap')}`;
             number8.style.left = x + 'px';
             number8.style.top = y + 'px';
             arr.set('balance', bal);
+            arr.set('energy', ener);
             saveToLocalStorage();
             console.log(arr.get('balance'));
             tapcoin.classList.add('clickAnim');
@@ -121,6 +123,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Инициализация проверки наличия progress-bar
     checkAndUpdateProgressBar();
 
+
+    // Функция для увеличения энергии
+    const increaseEnergy = () => {
+        let energy = parseInt(arr.get('energy'));
+        energy += parseInt(arr.get('profitTap'));
+        if(energy+ parseInt(arr.get('profitTap')) <= arr.get('energyLimit')){
+            arr.set('energy', energy);
+            saveToLocalStorage();
+            if (window.updateBalance) {
+                window.updateBalance();
+            }
+        }
+        
+    };
+
+    // Увеличиваем энергию каждую секунду
+    setInterval(increaseEnergy, 1000);
 });
 
 reportWebVitals();

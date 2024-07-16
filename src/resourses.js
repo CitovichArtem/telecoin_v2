@@ -7,6 +7,7 @@ console.log(arrString);
 if (arrString) {
     // Если данные есть, преобразуем их обратно в Map
     arr = new Map(Object.entries(JSON.parse(arrString)));
+
 } else {
     // Если данных нет, создаем новый объект Map и задаем начальные значения
     arr = new Map();
@@ -15,7 +16,9 @@ if (arrString) {
         .set('profitTap', '1')
         .set('moneyToUp', '25000')
         .set('profitHour', '0')
-        .set('myLeague', 'Bronze');
+        .set('myLeague', 'Bronze')
+        .set('energy', '1000')
+        .set('energyLimit', '1000');
 
     // Преобразуем Map в объект и сохраняем в localStorage
     const obj = Object.fromEntries(arr);
