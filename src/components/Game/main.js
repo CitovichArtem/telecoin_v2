@@ -4,7 +4,7 @@ let config = {
 	containerColorBG: "#000000",
 	contentColorBG: "#000000",
 
-	countRows: 6,
+	countRows: 9,
 	countCols: 7,
 
 	offsetBorder: 10,
