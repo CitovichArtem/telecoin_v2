@@ -11,6 +11,18 @@ class EnergyBoost extends React.Component {
             energy: arr.get('energy'),
         }
     }
+    updateEnergy = () => {
+        this.setState({
+            energy: arr.get('energy'),
+        });
+    }
+    componentDidMount() {
+        window.updateEnergy = this.updateEnergy;
+    }
+
+    componentWillUnmount() {
+        window.updateEnergy = null;
+    }
     render() {
         return(
             <section className='EnergyBoost'>
