@@ -756,7 +756,7 @@ div.Strip{
     
 }
 .GamePage, .MinePage{
-    height: 100svh;
+    min-height: 100svh;
     overflow-y: auto;
 }
 .GamePage{
