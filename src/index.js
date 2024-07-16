@@ -10,6 +10,7 @@ const app = ReactDOMClient.createRoot(document.getElementById('app'))
 app.render(<App/>)
 
 window.updateBalance = null;
+window.updateEnergy = null;
 let mask = document.getElementById('mask');
 
 window.addEventListener('load', () => {
@@ -128,11 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const increaseEnergy = () => {
         let energy = parseInt(arr.get('energy'));
         energy += parseInt(arr.get('profitTap'));
-        if(energy+ parseInt(arr.get('profitTap')) <= arr.get('energyLimit')){
+        if(energy <= arr.get('energyLimit')){
             arr.set('energy', energy);
             saveToLocalStorage();
-            if (window.updateBalance) {
-                window.updateBalance();
+            if (window.updateEnergy) {
+                window.updateEnergy();
             }
         }
         
