@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/telecoin_v2/static/css/main.31801d36.css",
-    "main.js": "/telecoin_v2/static/js/main.b7dbee3c.js",
-    "static/js/453.ed3810f9.chunk.js": "/telecoin_v2/static/js/453.ed3810f9.chunk.js",
-    "index.html": "/telecoin_v2/index.html",
-    "main.31801d36.css.map": "/telecoin_v2/static/css/main.31801d36.css.map",
-    "main.b7dbee3c.js.map": "/telecoin_v2/static/js/main.b7dbee3c.js.map",
-    "453.ed3810f9.chunk.js.map": "/telecoin_v2/static/js/453.ed3810f9.chunk.js.map"
+    "main.css": "/telecoin_v2/build/static/css/main.31801d36.css",
+    "main.js": "/telecoin_v2/build/static/js/main.54ba44d0.js",
+    "static/js/453.ed3810f9.chunk.js": "/telecoin_v2/build/static/js/453.ed3810f9.chunk.js",
+    "index.html": "/telecoin_v2/build/index.html",
+    "main.31801d36.css.map": "/telecoin_v2/build/static/css/main.31801d36.css.map",
+    "main.54ba44d0.js.map": "/telecoin_v2/build/static/js/main.54ba44d0.js.map",
+    "453.ed3810f9.chunk.js.map": "/telecoin_v2/build/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.31801d36.css",
-    "static/js/main.b7dbee3c.js"
+    "static/js/main.54ba44d0.js"
   ]
 }

@@ -75,6 +75,7 @@ $(document).ready(function() {
     function setupPlayButton() {
         $('#playButton').off('click').on('click', function() {
             console.log('Кнопка "Играть" нажата. Запускаем игру.');
+			resetGame();
             initGame();
         });
     }
@@ -99,7 +100,25 @@ $(document).ready(function() {
 });
 // Инициализация всех составляющих игры
 
+function resetGame() {
+    document.querySelectorAll("[class$=gem]").forEach(e => {
+		e.remove()
+	  })
+    components.container.innerHTML = '';
 
+    // Сбросить состояние игры и данных
+    config.countScore = 0;
+    player.selectedRow = -1;
+    player.selectedCol = -1;
+    player.posX = "";
+    player.posY = "";
+    config.gameState = "";
+    config.movingItems = 0;
+    components.gems = [];
+
+    // Восстановить состояние страницы
+    document.body.style.margin = "0px";
+}
 // Создание обертки для страницы
 function createPage() {
 	components.container.style.backgroundColor = config.containerColorBG;
