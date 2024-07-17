@@ -141,6 +141,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Увеличиваем энергию каждую секунду
     setInterval(increaseEnergy, 1000);
+
+    const lastExitTime = localStorage.getItem('lastExitTime');
+    if (lastExitTime) {
+        const currentTime = Date.now();
+        const offlineTime = Math.floor((currentTime - lastExitTime) / 1000);
+        alert(`Вы были оффлайн ${offlineTime} секунд`);
+    }
+
+    // Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
+    window.addEventListener('beforeunload', () => {
+        localStorage.setItem('lastExitTime', Date.now());
+    });
 });
 
 reportWebVitals();
