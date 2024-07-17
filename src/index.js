@@ -84,26 +84,17 @@ document.getElementById('app').addEventListener('click', function(event) {
 
 
     const checkAndUpdateProgressBar = () => {
-        const progressBar = document.getElementById('progress-bar');
-        const moneyToUpEl = document.getElementById('moneyToUp');
-        const TextAllTokensEl = document.getElementById('TextAllTokens');
-
-
-        
+        const updateProgress = () => {
+            const progressBar = document.getElementById('progress-bar');
             let bal = parseInt(arr.get('balance'));
             let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
-
-            const updateProgress = () => {
-                const progressPercentage = (bal / moneyToUp) * 100;
-                console.log(progressPercentage);
-                progressBar.style.width = `${progressPercentage}%`;
-                
-            };
-            
-            // Обновление прогресс-бара каждую секунду
+            const progressPercentage = (bal / moneyToUp) * 100;
+            console.log(progressPercentage);
+            progressBar.style.width = `${progressPercentage}%`;       
+        };
             setInterval(updateProgress, 1000);
-        
     };
+
     const updateLeague = () => {
         let bal = parseInt(arr.get('balance'));
         let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
@@ -135,10 +126,8 @@ document.getElementById('app').addEventListener('click', function(event) {
             console.log('balance less');
         }
     }
-    // Инициализация проверки наличия progress-bar
-    checkAndUpdateProgressBar();
     updateLeague();
-    
+    checkAndUpdateProgressBar();
 });
 
 const getMoneyToUpValueFromStr = (str) => {
