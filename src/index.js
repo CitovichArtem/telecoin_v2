@@ -77,26 +77,7 @@ document.getElementById('app').addEventListener('click', function(event) {
             }
         }
     }
-    
-    
-});
-const getMoneyToUpValue = (el) => {
-    switch (el.textContent) {
-        case '1B': return 1000000000;
-        case '100M': return 100000000;
-        case '50M': return 50000000;
-        case '10M': return 10000000;
-        case '2M': return 2000000;
-        case '1M': return 1000000;
-        case '100K': return 100000;
-        case '25K': return 25000;
-        case '5K': return 5000;
 
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    
 
     const checkAndUpdateProgressBar = () => {
         const progressBar = document.getElementById('progress-bar');
@@ -123,8 +104,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Инициализация проверки наличия progress-bar
     checkAndUpdateProgressBar();
+    
+    
+});
+const getMoneyToUpValue = (el) => {
+    switch (el.textContent) {
+        case '1B': return 1000000000;
+        case '100M': return 100000000;
+        case '50M': return 50000000;
+        case '10M': return 10000000;
+        case '2M': return 2000000;
+        case '1M': return 1000000;
+        case '100K': return 100000;
+        case '25K': return 25000;
+        case '5K': return 5000;
 
+    }
+}
 
+document.addEventListener('DOMContentLoaded', () => {
+    
     // Функция для увеличения энергии
     const increaseEnergy = () => {
         let energy = parseInt(arr.get('energy'));
