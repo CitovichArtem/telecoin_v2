@@ -119,7 +119,7 @@ const getMoneyToUpValue = (el) => {
         case '100K': return 100000;
         case '25K': return 25000;
         case '5K': return 5000;
-
+        case '25000' : return 25000;
     }
 }
 
