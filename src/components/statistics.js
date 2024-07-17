@@ -14,18 +14,6 @@ class Statistics extends React.Component {
             thirdTip: "Подсказка 3"
         }
     }
-    updateMoneyToUp = () => {
-        this.setState({
-            moneyToUp: arr.get('moneyToUp'),
-        });
-    }
-    componentDidMount() {
-        window.updateMoneyToUp = this.updateMoneyToUp;
-    }
-
-    componentWillUnmount() {
-        window.updateMoneyToUp = null;
-    }
     render() {
         return(
             <section className='Statistics'>

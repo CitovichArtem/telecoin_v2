@@ -1,10 +1,10 @@
 
 let leagues = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic', 'Legendary', 'Master', 'Grandmaster', 'Lord', 'Creator'];
-let moneyToUpArr = ['5K', '25K', '50K', '100K', '1M', '2M', '10M', '50M', '100M', '1B']
+
 let arr;    
 let arrString = localStorage.getItem('arr');
 console.log(arrString);
-if (!arrString) {
+if (arrString) {
     // Если данные есть, преобразуем их обратно в Map
     arr = new Map(Object.entries(JSON.parse(arrString)));
 
@@ -13,11 +13,10 @@ if (!arrString) {
     arr = new Map();
     arr
         .set('balance', '10000')
-        .set('profitTap', parseInt(arr.get('indexOfLeague')))
-        .set('indexOfLeague', 0)
-        .set('moneyToUp', moneyToUpArr[parseInt(arr.get('indexOfLeague'))])
+        .set('profitTap', '1')
+        .set('moneyToUp', '25K')
         .set('profitHour', '0')
-        .set('myLeague', leagues[parseInt(arr.get('indexOfLeague'))])
+        .set('myLeague', 'Bronze')
         .set('energy', '1000')
         .set('energyLimit', '1000');
 
