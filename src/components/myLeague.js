@@ -9,6 +9,18 @@ class MyLeague extends React.Component {
             MyLevel: 1,
         }
     }
+    updateLeague = () => {
+        this.setState({
+            MyLeague: arr.get('myLeague'),
+        });
+    }
+    componentDidMount() {
+        window.updateLeague = this.updateLeague;
+    }
+
+    componentWillUnmount() {
+        window.updateLeague = null;
+    }
     render() {
         return(
             <section className='MyLeague'>

@@ -11,6 +11,9 @@ app.render(<App/>)
 
 window.updateBalance = null;
 window.updateEnergy = null;
+window.updateLeague = null;
+window.updateMoneyToUp = null;
+
 let mask = document.getElementById('mask');
 
 window.addEventListener('load', () => {
@@ -93,6 +96,7 @@ document.getElementById('app').addEventListener('click', function(event) {
                 const progressPercentage = (TextAllTokens / moneyToUp) * 100;
                 console.log(progressPercentage);
                 progressBar.style.width = `${progressPercentage}%`;
+                updateLeague();
             };
             
             // Обновление прогресс-бара каждую секунду
@@ -102,7 +106,21 @@ document.getElementById('app').addEventListener('click', function(event) {
             setTimeout(checkAndUpdateProgressBar, 500); // Проверять каждые 500 мс
         }
     };
+    const updateLeague = () => {
+        let bal = parseInt(arr.get('balance'));
+        let moneyToUp = parseInt(arr.get('moneyToUp'));
 
+        if (bal >= moneyToUp) {
+            arr.set('indexOfLeague', parseInt(arr.get('indexOfLeague')) + 1);
+            saveToLocalStorage();
+            if (window.updateMoneyToUp) {
+                window.updateMoneyToUp();
+            }
+            if (window.updateLeague) {
+                window.updateLeague();
+            }
+        }
+    }
     // Инициализация проверки наличия progress-bar
     checkAndUpdateProgressBar();
     
