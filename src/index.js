@@ -141,12 +141,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Увеличиваем энергию каждую секунду
     setInterval(increaseEnergy, 1000);
-
+    
+    // офлайн счётчик на три часа (заработок + восстановление)
     const lastExitTime = localStorage.getItem('lastExitTime');
     if (lastExitTime) {
         const currentTime = Date.now();
         const offlineTime = Math.floor((currentTime - lastExitTime) / 1000);
-        alert(`Вы были оффлайн ${offlineTime} секунд`);
+        let bal = parseInt(arr.get('balance'));
+        bal = Math.min( bal + (parseInt(arr.get('profitTap'))* offlineTime), parseInt(arr.get('profitTap'))*3600*3);
+        console.log(`Вы были оффлайн ${offlineTime} секунд`);
+        console.log(`Заработали ${offlineTime*parseInt(arr.get('profitTap'))} `);
+        let energy = arr.get('energy');
+        energy = Math.min(energy + (offlineTime*parseInt(arr.get('profitTap'))), parseInt(arr.get('energyLimit')));
+        saveToLocalStorage();
+        if (window.updateBalance) {
+            window.updateBalance();
+        }
+        if (window.updateEnergy) {
+            window.updateEnergy();
+        }
     }
 
     // Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
