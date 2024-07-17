@@ -14,6 +14,7 @@ class Statistics extends React.Component {
             thirdTip: "Подсказка 3"
         }
     }
+    
     render() {
         return(
             <section className='Statistics'>
