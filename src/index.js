@@ -91,6 +91,7 @@ document.getElementById('app').addEventListener('click', function(event) {
 
             const updateProgress = () => {
                 const progressPercentage = (TextAllTokens / moneyToUp) * 100;
+                console.log(progressPercentage);
                 progressBar.style.width = `${progressPercentage}%`;
             };
             

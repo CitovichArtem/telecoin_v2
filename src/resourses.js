@@ -14,7 +14,7 @@ if (arrString) {
     arr
         .set('balance', '10000')
         .set('profitTap', '1')
-        .set('moneyToUp', '25000')
+        .set('moneyToUp', '25K')
         .set('profitHour', '0')
         .set('myLeague', 'Bronze')
         .set('energy', '1000')
