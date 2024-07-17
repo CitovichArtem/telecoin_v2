@@ -1,6 +1,6 @@
 
-let leagues = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic', 'Legendary', 'Master', 'Grandmaster', 'Lord', 'Creator'];
-
+export let leagues = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic', 'Legendary', 'Master', 'Grandmaster', 'Lord', 'Creator'];
+export let moneyToUpArr = ['5K', '25K', '100K', '1M', '2M', '10M', '50M', '100M', '1B']
 let arr;    
 let arrString = localStorage.getItem('arr');
 console.log(arrString);
@@ -12,11 +12,12 @@ if (arrString) {
     // Если данных нет, создаем новый объект Map и задаем начальные значения
     arr = new Map();
     arr
-        .set('balance', 10000)
+        .set('balance', 4990)
+        .set('indexProgress', 0)
         .set('profitTap', 1)
-        .set('moneyToUp', '25K')
+        .set('moneyToUp', moneyToUpArr[parseInt(arr.get('indexProgress'))])
         .set('profitHour', 0)
-        .set('myLeague', 'Bronze')
+        .set('myLeague', leagues[parseInt(arr.get('indexProgress'))])
         .set('energy', 1000)
         .set('energyLimit', 1000);
 

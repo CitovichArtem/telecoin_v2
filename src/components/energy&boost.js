@@ -14,6 +14,7 @@ class EnergyBoost extends React.Component {
     updateEnergy = () => {
         this.setState({
             energy: arr.get('energy'),
+            maxEnergy: arr.get('energyLimit'),
         });
     }
     componentDidMount() {

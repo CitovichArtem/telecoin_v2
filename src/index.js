@@ -5,12 +5,16 @@ import App from './App';
 import './components/Header.js';
 import reportWebVitals from './reportWebVitals';
 import arr, {saveToLocalStorage} from './resourses.js';
+import { leagues } from './resourses.js';
+import { moneyToUpArr } from './resourses.js';
 
 const app = ReactDOMClient.createRoot(document.getElementById('app')) 
 app.render(<App/>)
 
 window.updateBalance = null;
 window.updateEnergy = null;
+window.updateLeague = null;
+window.updateMoneyToUp = null;
 let mask = document.getElementById('mask');
 
 window.addEventListener('load', () => {
@@ -85,31 +89,60 @@ document.getElementById('app').addEventListener('click', function(event) {
         const TextAllTokensEl = document.getElementById('TextAllTokens');
 
 
-        if (progressBar && moneyToUpEl && TextAllTokensEl) {
-            const moneyToUp = getMoneyToUpValue(moneyToUpEl);
-            const TextAllTokens = parseInt(TextAllTokensEl.textContent.replace(/\s+/g, ''));
+        
+            let bal = parseInt(arr.get('balance'));
+            let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
 
             const updateProgress = () => {
-                const progressPercentage = (TextAllTokens / moneyToUp) * 100;
+                const progressPercentage = (bal / moneyToUp) * 100;
                 console.log(progressPercentage);
                 progressBar.style.width = `${progressPercentage}%`;
+                
             };
             
             // Обновление прогресс-бара каждую секунду
             setInterval(updateProgress, 1000);
-        } else {
-            console.log('no progress-bar, retrying...');
-            setTimeout(checkAndUpdateProgressBar, 500); // Проверять каждые 500 мс
-        }
+        
     };
+    const updateLeague = () => {
+        let bal = parseInt(arr.get('balance'));
+        let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
+        let profitTap = parseInt(arr.get('profitTap'));
+        let energyLimit = parseInt(arr.get('energyLimit'));
 
+        console.log(arr.get('moneyToUp') +'www' + bal + ',,,' +moneyToUp + ',' + profitTap);
+        if (bal >= moneyToUp) {
+            console.log('balance more');
+            console.log('ky' + arr.get('indexProgress'));
+            arr.set('indexProgress', parseInt(arr.get('indexProgress')) + 1);
+            arr.set('profitTap', profitTap + 1);
+            arr.set('moneyToUp', moneyToUpArr[parseInt(arr.get('indexProgress'))]);
+            arr.set('myLeague', leagues[parseInt(arr.get('indexProgress'))]);
+            arr.set('energyLimit', energyLimit + 500);
+            saveToLocalStorage();
+            console.log('ky' + arr.get('indexProgress'));
+            if (window.updateMoneyToUp) {
+                window.updateMoneyToUp();
+            }
+            if (window.updateLeague) {
+                window.updateLeague();
+            }
+            if (window.updateEnergy) {
+                window.updateEnergy();
+            }
+            checkAndUpdateProgressBar();
+        }else{
+            console.log('balance less');
+        }
+    }
     // Инициализация проверки наличия progress-bar
     checkAndUpdateProgressBar();
-    
+    updateLeague();
     
 });
-const getMoneyToUpValue = (el) => {
-    switch (el.textContent) {
+
+const getMoneyToUpValueFromStr = (str) => {
+    switch (str) {
         case '1B': return 1000000000;
         case '100M': return 100000000;
         case '50M': return 50000000;
@@ -125,7 +158,7 @@ const getMoneyToUpValue = (el) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Функция для увеличения энергии
+    // Функция для восстановления энергии
     const increaseEnergy = () => {
         let energy = parseInt(arr.get('energy'));
         energy += parseInt(arr.get('profitTap'));
