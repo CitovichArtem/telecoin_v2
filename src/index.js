@@ -141,18 +141,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Увеличиваем энергию каждую секунду
     setInterval(increaseEnergy, 1000);
-    
+
     // офлайн счётчик на три часа (заработок + восстановление)
     const lastExitTime = localStorage.getItem('lastExitTime');
     if (lastExitTime) {
         const currentTime = Date.now();
         const offlineTime = Math.floor((currentTime - lastExitTime) / 1000);
+
         let bal = parseInt(arr.get('balance'));
-        bal = Math.min( bal + (parseInt(arr.get('profitTap'))* offlineTime), parseInt(arr.get('profitTap'))*3600*3);
+        const profitTap = parseInt(arr.get('profitTap'));
+        const maxOfflineBonus = profitTap * 3600 * 3; // Максимум 3 часа бонуса
+        const addedBalance = Math.min(profitTap * offlineTime, maxOfflineBonus);
+        bal += addedBalance;
+        arr.set('balance', bal);
+
+        let energy = arr.get('energy');
+        const maxOfflineEnergy = arr.get('energyLimit');
+        const newEnergy = Math.min(energy + (profitTap * offlineTime), maxOfflineEnergy);
+        energy = newEnergy;
+        arr.set('energy', energy);
+
         console.log(`Вы были оффлайн ${offlineTime} секунд`);
         console.log(`Заработали ${offlineTime*parseInt(arr.get('profitTap'))} `);
-        let energy = arr.get('energy');
-        energy = Math.min(energy + (offlineTime*parseInt(arr.get('profitTap'))), parseInt(arr.get('energyLimit')));
         saveToLocalStorage();
         if (window.updateBalance) {
             window.updateBalance();
