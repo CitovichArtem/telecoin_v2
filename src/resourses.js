@@ -4,7 +4,7 @@ let leagues = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic', 'Legen
 let arr;    
 let arrString = localStorage.getItem('arr');
 console.log(arrString);
-if (!arrString) {
+if (arrString) {
     // Если данные есть, преобразуем их обратно в Map
     arr = new Map(Object.entries(JSON.parse(arrString)));
 
