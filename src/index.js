@@ -146,6 +146,7 @@ const getMoneyToUpValueFromStr = (str) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
     
     // Функция для восстановления энергии
     const increaseEnergy = () => {
@@ -166,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // офлайн счётчик на три часа (заработок + восстановление)
     const lastExitTime = localStorage.getItem('lastExitTime');
+    const tg = window.Telegram.WebApp;
     if (lastExitTime) {
         const currentTime = Date.now();
         const offlineTime = Math.floor((currentTime - lastExitTime) / 1000);
@@ -192,6 +194,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.updateEnergy) {
             window.updateEnergy();
         }
+        if(tg){
+            tg.showAlert('Монет' + offlineTime*parseInt(arr.get('profitTap')));
+        }
+    }
+    else{
+
+    }
+    
+    if (!tg) {
+        console.error("Telegram Web App API не доступен");
+        return;
+        
+    }else{
+        console.log("Telegram Web App API инициализирован");
+        tg.headerColor = "#00198a";
+        tg.isClosingConfirmationEnabled = true;
+        
     }
 
     // Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы

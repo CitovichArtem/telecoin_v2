@@ -11,6 +11,10 @@ import EarnPage from './components/EarnPage.js/EarnPage.js';
 import GamePage from './components/Game/GamePage.js';
 import MinePage from './components/MinePage/MinePage.js';
 
+
+
+
+
 const App = () => {
     const [showGame, setShowGame] = useState(true);
     const [showMine, setShowMine] = useState(false);
