@@ -6,18 +6,14 @@ let arr;
 let arrString = localStorage.getItem('arr');
 console.log(arrString);
 export let fullName;
-export let photoSrc;
-
 if (!tg) {
     console.error("Telegram Web App API не доступен");
-    fullName = 'Имя и Фамилия)';
-    photoSrc = 'img/image.png';
+    fullName = 'Имя и Фамилия)'
 }else{
-    console.log("Telegram Web App API инициализирован" + tg);
+    console.log("Telegram Web App API инициализирован");
     tg.headerColor = "#00198a";
     tg.isClosingConfirmationEnabled = true;
     fullName = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
-    photoSrc = tg.initDataUnsafe.user.photo_url;
 }
 
 if (arrString) {
