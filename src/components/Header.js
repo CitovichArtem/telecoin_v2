@@ -4,7 +4,7 @@ import { IoPersonSharp } from "react-icons/io5";
 import tg from "../resourses.js";
 let username1;
 if(tg){
-    username1 = tg.WebAppUser.username ;
+    username1 = tg.username ;
 }else{
     username1 = "Имя Фамилия)";
 }
