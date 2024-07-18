@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOMClient from 'react-dom/client';
 import { IoPersonSharp } from "react-icons/io5";
-import tg from "../resourses.js";
-let username1;
+import { fullName } from '../resourses';
 
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: 'Имя Фамилия',
+            username: fullName,
         }
     }
     render() {

@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import arr, {saveToLocalStorage} from './resourses.js';
 import { leagues } from './resourses.js';
 import { moneyToUpArr } from './resourses.js';
-import tg from './resourses.js';
 
 const app = ReactDOMClient.createRoot(document.getElementById('app')) 
 app.render(<App/>)
@@ -194,9 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (window.updateEnergy) {
             window.updateEnergy();
-        }
-        if(tg){
-            tg.showAlert('Монет' + offlineTime*parseInt(arr.get('profitTap')));
         }
     }
     else{
