@@ -147,10 +147,6 @@ const updateLeague = () => {
         arr.set('myLeague', leagues[indexProgress]);
         arr.set('energyLimit', energyLimit);
 
-        // Сохраняем обновленный баланс
-        bal -= moneyToUp;
-        arr.set('balance', bal);
-
         // Пересчитываем сумму для следующего перехода
         moneyToUp = getMoneyToUpValueFromStr(moneyToUpArr[indexProgress]);
     }

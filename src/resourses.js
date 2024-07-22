@@ -100,7 +100,7 @@ const initialCards = [
         currentIncome: 0,
         levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
         incomeIncreases: [60, 120, 180, 320, 550, 800, 1000, 1400, 2000, 5000]
-    },
+    }
 ];
 
 if (!arrString) {
