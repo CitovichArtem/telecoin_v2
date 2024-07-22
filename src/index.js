@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(increaseEnergy, 1000);
     setInterval(increaseBalance, 1000);
     // офлайн счётчик на три часа (заработок + восстановление)
-    const lastExitTime = tg.CloudStorage.getItem('lastExitTime');
+    const lastExitTime = localStorage.getItem('lastExitTime');
     
     if (lastExitTime) {
         const currentTime = Date.now();
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
     window.addEventListener('beforeunload', () => {
-        tg.CloudStorage.setItem('lastExitTime', Date.now());
+        localStorage.setItem('lastExitTime', Date.now());
     });
 });
 
