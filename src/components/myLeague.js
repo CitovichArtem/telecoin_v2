@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import arr from '../resourses.js';
+import {arr} from '../resourses.js';
 class MyLeague extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             MyLeague: arr.get('myLeague'),
-            MyLevel: 1,
+            MyLevel: parseInt(arr.get('indexProgress')+1),
         }
     }
     updateLeague = () => {
         this.setState({
             MyLeague: arr.get('myLeague'),
+            MyLevel: parseInt(arr.get('indexProgress')+1)
         });
     }
     componentDidMount() {

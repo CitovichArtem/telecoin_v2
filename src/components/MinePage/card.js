@@ -1,8 +1,13 @@
 import React from 'react';
 
-const Card =({imgSrc, title, text, profit, lvl, price, showFullCardPage}) => {
+const Card =({imgSrc, title, text, profit, lvl, price,incomeIncrease, showFullCardPage, isLevelZero}) => {
+    const cardStyle = {
+        backgroundColor: isLevelZero ? '#131313' : '#141414', 
+        opacity: isLevelZero ? 0.7 : 1
+    };
+
     return(
-        <section className='card' onClick={()=>showFullCardPage(imgSrc, title, text, profit, lvl, price)}>
+        <section className='card' style={cardStyle} onClick={()=>showFullCardPage(imgSrc, title, text, profit, lvl, price, incomeIncrease)}>
             <div className='cardWrapper'>
                 <div className='cardTop'>
                     <div className='cardImgBlock'><img width="50px" height='50px' src={imgSrc} /></div>
