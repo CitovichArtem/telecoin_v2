@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {arr} from '../resourses.js';
+import arr from '../resourses.js';
 
 class Statistics extends React.Component {
     constructor(props) {
@@ -18,7 +18,6 @@ class Statistics extends React.Component {
         this.setState({
             moneyToUp: arr.get('moneyToUp'),
             clickProfit: arr.get('profitTap'),
-            hourProfit: arr.get('profitHour'),
         });
     }
     componentDidMount() {

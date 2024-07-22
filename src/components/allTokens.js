@@ -1,5 +1,6 @@
 import React from 'react';
-import {arr} from '../resourses.js';
+import ReactDOM from 'react-dom/client';
+import arr from '../resourses.js';
 class AllTokens extends React.Component {
     constructor(props) {
         super(props);
@@ -25,7 +26,7 @@ class AllTokens extends React.Component {
         return(
             <section className='AllTokens'>
                 <img width="50px" src='img/монетка.png'/>
-                <p id='TextAllTokens' className='TextAllTokens'>{Intl.NumberFormat('ru-RU').format(parseInt(this.state.allTokens))}</p>
+                <p id='TextAllTokens' className='TextAllTokens'>{Intl.NumberFormat('ru-RU').format(this.state.allTokens)}</p>
             </section>
     )}
 }

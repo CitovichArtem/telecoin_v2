@@ -746,11 +746,6 @@ div.Strip{
     position: relative;
 
 }
-.FullCard__GetButton.disabled {
-    opacity: 0.5;
-    background-color: grey; /* Можно выбрать любой цвет для неактивной кнопки */
-    cursor: not-allowed;
-}
 .closeIcon{
     position: absolute;
     width: 35px;
