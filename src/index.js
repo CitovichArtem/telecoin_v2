@@ -23,6 +23,28 @@ window.addEventListener('load', () => {
         setTimeout(() => {
             mask.remove();
         }, 500);
+        const lastExitTime = localStorage.getItem('lastExitTime');
+    
+        if (lastExitTime) {
+            const currentTime = Date.now();
+            const offlineTime = Math.floor((currentTime - lastExitTime) / 1000);
+            let bal = parseFloat(arr.get('balance'));
+            let profitTap = parseInt(arr.get('profitTap'));
+            let profitHour = parseInt(arr.get('profitHour'));
+            const maxOfflineBonus = profitHour * 3; // Максимум 3 часа бонуса
+            const addedBalance = Math.min(profitHour * offlineTime/3600, maxOfflineBonus);
+            bal += addedBalance;
+            arr.set('balance', bal);
+            let energy = arr.get('energy');
+            const maxOfflineEnergy = arr.get('energyLimit');
+            const newEnergy = Math.min(energy + (profitTap * offlineTime), maxOfflineEnergy);
+            arr.set('energy', newEnergy);
+
+            console.log(`Вы были оффлайн ${offlineTime} секунд`);
+            console.log(`Заработали ${offlineTime*parseInt(arr.get('profitTap'))} `);
+            saveToLocalStorage();
+        }
+        
     }
     setTimeout(load, 1000);
     
@@ -181,45 +203,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Увеличиваем энергию каждую секунду
     setInterval(increaseEnergy, 1000);
     setInterval(increaseBalance, 1000);
-    // офлайн счётчик на три часа (заработок + восстановление)
-    const lastExitTime = localStorage.getItem('lastExitTime');
     
-    if (lastExitTime) {
-        const currentTime = Date.now();
-        const offlineTime = Math.floor((currentTime - lastExitTime) / 1000);
-
-        let bal = parseFloat(arr.get('balance'));
-        const profitTap = parseInt(arr.get('profitTap'));
-        const maxOfflineBonus = profitTap * 3600 * 3; // Максимум 3 часа бонуса
-        const addedBalance = Math.min(profitTap * offlineTime, maxOfflineBonus);
-        bal += addedBalance;
-        arr.set('balance', bal);
-
-        let energy = arr.get('energy');
-        const maxOfflineEnergy = arr.get('energyLimit');
-        const newEnergy = Math.min(energy + (profitTap * offlineTime), maxOfflineEnergy);
-        energy = newEnergy;
-        arr.set('energy', energy);
-
-        console.log(`Вы были оффлайн ${offlineTime} секунд`);
-        console.log(`Заработали ${offlineTime*parseInt(arr.get('profitTap'))} `);
-        saveToLocalStorage();
-        if (window.updateBalance) {
-            window.updateBalance();
-        }
-        if (window.updateEnergy) {
-            window.updateEnergy();
-        }
-    }
-    else{
-
-    }
     
     
 
     // Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
     window.addEventListener('beforeunload', () => {
         localStorage.setItem('lastExitTime', Date.now());
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            localStorage.setItem('lastExitTime', Date.now());
+        }
     });
 });
 
