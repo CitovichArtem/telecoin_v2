@@ -50,27 +50,10 @@ window.addEventListener('load', () => {
     
 });
 
-document.getElementById('app').addEventListener('click', handleClickInArea);
-document.addEventListener('DOMContentLoaded', () => {
-    // Увеличиваем энергию каждую секунду
-    setInterval(increaseEnergy, 1000);
-    setInterval(increaseBalance, 1000);
-});
-// Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
-window.addEventListener('beforeunload', () => {
-    localStorage.setItem('lastExitTime', Date.now());
-});
-document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') {
-        localStorage.setItem('lastExitTime', Date.now());
-    }
-});
-
-
-const handleClickInArea = (event) => {
+document.getElementById('app').addEventListener('click', function(event) {
     var x = event.clientX;
     var y = event.clientY;
-    if (document.getElementById('myBody')) {
+    if(document.getElementById('myBody')){
         var img = document.getElementById('clickableArea');
         var tapcoin = document.getElementById('TapCoin');
         var width = img.offsetWidth;
@@ -86,7 +69,8 @@ const handleClickInArea = (event) => {
         var centerY = y1 + height / 2;
         console.log("centerXy" + centerX + " " + centerY);
 
-        if (((x - centerX) ** 2 + (y - centerY) ** 2 <= 125 ** 2) && (parseInt(arr.get('energy')) >= parseInt(arr.get('profitTap')))) {
+
+        if( ((x-centerX)**2+(y-centerY)**2 <= 125**2) &&(parseInt(arr.get('energy')) >= parseInt(arr.get('profitTap')))){
             let bal = parseFloat(arr.get('balance'));
             let ener = parseInt(arr.get('energy'));
 
@@ -104,28 +88,24 @@ const handleClickInArea = (event) => {
             console.log(arr.get('balance'));
             tapcoin.classList.add('clickAnim');
             document.body.appendChild(number8);
-
-            function deleteClass() {
-                tapcoin.classList.remove('clickAnim');
+            function deleteClass(){
+                tapcoin.classList.remove('clickAnim')
             }
-
             // Удаляем элемент после завершения анимации
-            number8.addEventListener('animationend', function () {
+            number8.addEventListener('animationend', function() {
                 document.body.removeChild(number8);
             });
-
             setTimeout(deleteClass, 300);
-
             if (window.updateBalance) {
                 window.updateBalance();
             }
-
             updateLeague();
         }
-    }
-
+    }    
     checkAndUpdateProgressBar();
-};
+});
+
+
 
 const checkAndUpdateProgressBar = () => {
     const updateProgress = () => {
@@ -234,5 +214,20 @@ const increaseBalance = () =>{
     }
     updateLeague();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Увеличиваем энергию каждую секунду
+    setInterval(increaseEnergy, 1000);
+    setInterval(increaseBalance, 1000);
+});
+// Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('lastExitTime', Date.now());
+});
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        localStorage.setItem('lastExitTime', Date.now());
+    }
+});
 
 reportWebVitals();
