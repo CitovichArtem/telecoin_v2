@@ -1,7 +1,7 @@
 //https://cdn.icon-icons.com/icons2/1903/PNG/512/iconfinder-weather-weather-forecast-lightning-storm-energy-3859139_121230.png
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import arr from '../resourses.js';
+import {arr} from '../resourses.js';
 
 class EnergyBoost extends React.Component {
     constructor(props) {

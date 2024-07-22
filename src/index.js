@@ -4,9 +4,7 @@ import './css/main.css';
 import App from './App';
 import './components/Header.js';
 import reportWebVitals from './reportWebVitals';
-import arr, {saveToLocalStorage} from './resourses.js';
-import { leagues } from './resourses.js';
-import { moneyToUpArr } from './resourses.js';
+import {arr, saveToLocalStorage, leagues, moneyToUpArr, tg } from './resourses.js';
 
 const app = ReactDOMClient.createRoot(document.getElementById('app')) 
 app.render(<App/>)
@@ -51,7 +49,7 @@ document.getElementById('app').addEventListener('click', function(event) {
 
 
         if( ((x-centerX)**2+(y-centerY)**2 <= 125**2) &&(parseInt(arr.get('energy')) >= parseInt(arr.get('profitTap')))){
-            let bal = parseInt(arr.get('balance'));
+            let bal = parseFloat(arr.get('balance'));
             let ener = parseInt(arr.get('energy'));
 
             bal = bal + parseInt(arr.get('profitTap'));
@@ -85,19 +83,25 @@ document.getElementById('app').addEventListener('click', function(event) {
 
     const checkAndUpdateProgressBar = () => {
         const updateProgress = () => {
-            const progressBar = document.getElementById('progress-bar');
-            let bal = parseInt(arr.get('balance'));
-            let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
-            const progressPercentage = (bal / moneyToUp) * 100;
-            console.log(progressPercentage);
-            progressBar.style.width = `${progressPercentage}%`;       
+            try{
+                const progressBar = document.getElementById('progress-bar');
+                let bal = parseFloat(arr.get('balance'));
+                let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
+                const progressPercentage = (bal / moneyToUp) * 100;
+                console.log(progressPercentage);
+                progressBar.style.width = `${progressPercentage}%`; 
+            }
+            catch (e) {
+            }
+                  
         };
             setInterval(updateProgress, 1000);
     };
 
     const updateLeague = () => {
-        let bal = parseInt(arr.get('balance'));
+        let bal = parseFloat(arr.get('balance'));
         let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
+        
         let profitTap = parseInt(arr.get('profitTap'));
         let energyLimit = parseInt(arr.get('energyLimit'));
 
@@ -122,8 +126,6 @@ document.getElementById('app').addEventListener('click', function(event) {
                 window.updateEnergy();
             }
             checkAndUpdateProgressBar();
-        }else{
-            console.log('balance less');
         }
     }
     updateLeague();
@@ -142,6 +144,7 @@ const getMoneyToUpValueFromStr = (str) => {
         case '25K': return 25000;
         case '5K': return 5000;
         case '25000' : return 25000;
+        case '5000' : return 5000;
     }
 }
 
@@ -158,21 +161,34 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.updateEnergy) {
                 window.updateEnergy();
             }
+            if(window.updateMoneyToUp){
+                window.updateMoneyToUp();
+            }
         }
         
     };
-
+    const increaseBalance = () =>{
+        
+        let bal = parseFloat(arr.get('balance'));
+        let profit = parseFloat(arr.get('profitHour'));
+        bal += (profit/3600);
+        arr.set('balance', bal);
+        saveToLocalStorage();
+        if (window.updateBalance) {
+            window.updateBalance();
+        }
+    }
     // Увеличиваем энергию каждую секунду
     setInterval(increaseEnergy, 1000);
-
+    setInterval(increaseBalance, 1000);
     // офлайн счётчик на три часа (заработок + восстановление)
-    const lastExitTime = localStorage.getItem('lastExitTime');
+    const lastExitTime = tg.CloudStorage.getItem('lastExitTime');
     
     if (lastExitTime) {
         const currentTime = Date.now();
         const offlineTime = Math.floor((currentTime - lastExitTime) / 1000);
 
-        let bal = parseInt(arr.get('balance'));
+        let bal = parseFloat(arr.get('balance'));
         const profitTap = parseInt(arr.get('profitTap'));
         const maxOfflineBonus = profitTap * 3600 * 3; // Максимум 3 часа бонуса
         const addedBalance = Math.min(profitTap * offlineTime, maxOfflineBonus);
@@ -203,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
     window.addEventListener('beforeunload', () => {
-        localStorage.setItem('lastExitTime', Date.now());
+        tg.CloudStorage.setItem('lastExitTime', Date.now());
     });
 });
 
