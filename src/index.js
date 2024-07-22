@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
             arr.set('energy', newEnergy);
 
             console.log(`Вы были оффлайн ${offlineTime} секунд`);
-            console.log(`Заработали ${offlineTime*parseInt(arr.get('profitTap'))} `);
+            console.log(`Заработали ${offlineTime*parseInt(arr.get('profitHour'))/3600} `);
             saveToLocalStorage();
         }
         
@@ -50,10 +50,27 @@ window.addEventListener('load', () => {
     
 });
 
-document.getElementById('app').addEventListener('click', function(event) {
+document.getElementById('app').addEventListener('click', handleClickInArea);
+document.addEventListener('DOMContentLoaded', () => {
+    // Увеличиваем энергию каждую секунду
+    setInterval(increaseEnergy, 1000);
+    setInterval(increaseBalance, 1000);
+});
+// Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('lastExitTime', Date.now());
+});
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        localStorage.setItem('lastExitTime', Date.now());
+    }
+});
+
+
+const handleClickInArea = (event) => {
     var x = event.clientX;
     var y = event.clientY;
-    if(document.getElementById('myBody')){
+    if (document.getElementById('myBody')) {
         var img = document.getElementById('clickableArea');
         var tapcoin = document.getElementById('TapCoin');
         var width = img.offsetWidth;
@@ -69,8 +86,7 @@ document.getElementById('app').addEventListener('click', function(event) {
         var centerY = y1 + height / 2;
         console.log("centerXy" + centerX + " " + centerY);
 
-
-        if( ((x-centerX)**2+(y-centerY)**2 <= 125**2) &&(parseInt(arr.get('energy')) >= parseInt(arr.get('profitTap')))){
+        if (((x - centerX) ** 2 + (y - centerY) ** 2 <= 125 ** 2) && (parseInt(arr.get('energy')) >= parseInt(arr.get('profitTap')))) {
             let bal = parseFloat(arr.get('balance'));
             let ener = parseInt(arr.get('energy'));
 
@@ -88,71 +104,91 @@ document.getElementById('app').addEventListener('click', function(event) {
             console.log(arr.get('balance'));
             tapcoin.classList.add('clickAnim');
             document.body.appendChild(number8);
-            function deleteClass(){
-                tapcoin.classList.remove('clickAnim')
+
+            function deleteClass() {
+                tapcoin.classList.remove('clickAnim');
             }
+
             // Удаляем элемент после завершения анимации
-            number8.addEventListener('animationend', function() {
+            number8.addEventListener('animationend', function () {
                 document.body.removeChild(number8);
             });
+
             setTimeout(deleteClass, 300);
+
             if (window.updateBalance) {
                 window.updateBalance();
             }
+
+            updateLeague();
         }
     }
 
-
-    const checkAndUpdateProgressBar = () => {
-        const updateProgress = () => {
-            try{
-                const progressBar = document.getElementById('progress-bar');
-                let bal = parseFloat(arr.get('balance'));
-                let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
-                const progressPercentage = (bal / moneyToUp) * 100;
-                console.log(progressPercentage);
-                progressBar.style.width = `${progressPercentage}%`; 
-            }
-            catch (e) {
-            }
-                  
-        };
-            setInterval(updateProgress, 1000);
-    };
-
-    const updateLeague = () => {
-        let bal = parseFloat(arr.get('balance'));
-        let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
-        
-        let profitTap = parseInt(arr.get('profitTap'));
-        let energyLimit = parseInt(arr.get('energyLimit'));
-
-        console.log(arr.get('moneyToUp') +'www' + bal + ',,,' +moneyToUp + ',' + profitTap);
-        if (bal >= moneyToUp) {
-            console.log('balance more');
-            console.log('ky' + arr.get('indexProgress'));
-            arr.set('indexProgress', parseInt(arr.get('indexProgress')) + 1);
-            arr.set('profitTap', profitTap + 1);
-            arr.set('moneyToUp', moneyToUpArr[parseInt(arr.get('indexProgress'))]);
-            arr.set('myLeague', leagues[parseInt(arr.get('indexProgress'))]);
-            arr.set('energyLimit', energyLimit + 500);
-            saveToLocalStorage();
-            console.log('ky' + arr.get('indexProgress'));
-            if (window.updateMoneyToUp) {
-                window.updateMoneyToUp();
-            }
-            if (window.updateLeague) {
-                window.updateLeague();
-            }
-            if (window.updateEnergy) {
-                window.updateEnergy();
-            }
-            checkAndUpdateProgressBar();
-        }
-    }
-    updateLeague();
     checkAndUpdateProgressBar();
-});
+};
+
+const checkAndUpdateProgressBar = () => {
+    const updateProgress = () => {
+        try{
+            const progressBar = document.getElementById('progress-bar');
+            let bal = parseFloat(arr.get('balance'));
+            let moneyToUp = getMoneyToUpValueFromStr(arr.get('moneyToUp'));
+            const progressPercentage = (bal / moneyToUp) * 100;
+            console.log(progressPercentage);
+            progressBar.style.width = `${progressPercentage}%`; 
+        }
+        catch (e) {
+        }
+              
+    };
+        setInterval(updateProgress, 1000);
+};
+
+const updateLeague = () => {
+    let bal = parseFloat(arr.get('balance'));
+    let indexProgress = parseInt(arr.get('indexProgress'));
+    let profitTap = parseInt(arr.get('profitTap'));
+    let energyLimit = parseInt(arr.get('energyLimit'));
+    
+    let moneyToUp = getMoneyToUpValueFromStr(moneyToUpArr[indexProgress]);
+    
+    // Добавляем цикл, который будет обновлять лигу, пока баланс позволяет
+    while (bal >= moneyToUp && indexProgress < leagues.length - 1) {
+        console.log(`Переход на новую лигу: ${leagues[indexProgress + 1]}`);
+        
+        indexProgress += 1;
+        profitTap += 1;
+        energyLimit += 500;
+        
+        // Обновляем значения в arr
+        arr.set('indexProgress', indexProgress);
+        arr.set('profitTap', profitTap);
+        arr.set('moneyToUp', moneyToUpArr[indexProgress]);
+        arr.set('myLeague', leagues[indexProgress]);
+        arr.set('energyLimit', energyLimit);
+
+        // Сохраняем обновленный баланс
+        bal -= moneyToUp;
+        arr.set('balance', bal);
+
+        // Пересчитываем сумму для следующего перехода
+        moneyToUp = getMoneyToUpValueFromStr(moneyToUpArr[indexProgress]);
+    }
+
+    saveToLocalStorage();
+
+    // Обновляем интерфейс, если есть соответствующие функции
+    if (window.updateMoneyToUp) {
+        window.updateMoneyToUp();
+    }
+    if (window.updateLeague) {
+        window.updateLeague();
+    }
+    if (window.updateEnergy) {
+        window.updateEnergy();
+    }
+    checkAndUpdateProgressBar();
+};
 
 const getMoneyToUpValueFromStr = (str) => {
     switch (str) {
@@ -170,52 +206,33 @@ const getMoneyToUpValueFromStr = (str) => {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-
-    
-    // Функция для восстановления энергии
-    const increaseEnergy = () => {
-        let energy = parseInt(arr.get('energy'));
-        energy += parseInt(arr.get('profitTap'));
-        if(energy <= arr.get('energyLimit')){
-            arr.set('energy', energy);
-            saveToLocalStorage();
-            if (window.updateEnergy) {
-                window.updateEnergy();
-            }
-            if(window.updateMoneyToUp){
-                window.updateMoneyToUp();
-            }
-        }
-        
-    };
-    const increaseBalance = () =>{
-        
-        let bal = parseFloat(arr.get('balance'));
-        let profit = parseFloat(arr.get('profitHour'));
-        bal += (profit/3600);
-        arr.set('balance', bal);
+// Функция для восстановления энергии
+const increaseEnergy = () => {
+    let energy = parseInt(arr.get('energy'));
+    energy += parseInt(arr.get('profitTap'));
+    if(energy <= arr.get('energyLimit')){
+        arr.set('energy', energy);
         saveToLocalStorage();
-        if (window.updateBalance) {
-            window.updateBalance();
+        if (window.updateEnergy) {
+            window.updateEnergy();
+        }
+        if(window.updateMoneyToUp){
+            window.updateMoneyToUp();
         }
     }
-    // Увеличиваем энергию каждую секунду
-    setInterval(increaseEnergy, 1000);
-    setInterval(increaseBalance, 1000);
     
+};
+const increaseBalance = () =>{
     
-    
-
-    // Сохраняем текущее время как время последнего выхода при закрытии или обновлении страницы
-    window.addEventListener('beforeunload', () => {
-        localStorage.setItem('lastExitTime', Date.now());
-    });
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
-            localStorage.setItem('lastExitTime', Date.now());
-        }
-    });
-});
+    let bal = parseFloat(arr.get('balance'));
+    let profit = parseFloat(arr.get('profitHour'));
+    bal += (profit/3600);
+    arr.set('balance', bal);
+    saveToLocalStorage();
+    if (window.updateBalance) {
+        window.updateBalance();
+    }
+    updateLeague();
+}
 
 reportWebVitals();

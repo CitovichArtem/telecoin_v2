@@ -29,30 +29,78 @@ if (!tg) {
 
 const initialCards = [
     {
-        name: "Card 1",
+        name: "KYC",
         photo: 'img/монетка.png',
         text: 'Получите профессиональную юридическую консультацию или оценку вашего бизнеса',
         currentLevel: 0,
         currentIncome: 0,
-        levelUpCosts: [1000, 2000, 2000, 8700, 10000, 20000, 40000, 100000],
-        incomeIncreases: [250, 400, 640, 870, 900, 1200, 2200, 5000]
+        levelUpCosts: [100, 200, 500, 1000, 3000, 5000, 10000, 20000, 40000, 100000, 150000, 250000],
+        incomeIncreases: [50, 90, 200, 350, 250, 400, 640, 870, 900, 1200, 2200, 5000]
     },
     {
-        name: "Card 2",
+        name: "ETH",
         photo: 'img/монетка.png',
         currentLevel: 0,
         currentIncome: 0,
-        levelUpCosts: [150, 250, 400],
-        incomeIncreases: [60, 120, 180]
+        levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
+        incomeIncreases: [60, 120, 180, 320, 550, 800, 1000, 1400, 2000, 5000]
     },
     {
         name: "Card 3",
         photo: 'img/монетка.png',
         currentLevel: 0,
         currentIncome: 0,
-        levelUpCosts: [100, 200, 350],
-        incomeIncreases: [70, 140, 210]
-    }
+        levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
+        incomeIncreases: [80, 140, 220, 350, 610, 850, 1200, 1700, 2100, 9000]
+    },
+    {
+        name: "Card 4",
+        photo: 'img/монетка.png',
+        currentLevel: 0,
+        currentIncome: 0,
+        levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
+        incomeIncreases: [60, 120, 180, 320, 550, 800, 1000, 1400, 2000, 5000]
+    },
+    {
+        name: "Card 5",
+        photo: 'img/монетка.png',
+        currentLevel: 0,
+        currentIncome: 0,
+        levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
+        incomeIncreases: [60, 120, 180, 320, 550, 800, 1000, 1400, 2000, 5000]
+    },
+    {
+        name: "Card 6",
+        photo: 'img/монетка.png',
+        currentLevel: 0,
+        currentIncome: 0,
+        levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
+        incomeIncreases: [60, 120, 180, 320, 550, 800, 1000, 1400, 2000, 5000]
+    },
+    {
+        name: "Card 7",
+        photo: 'img/монетка.png',
+        currentLevel: 0,
+        currentIncome: 0,
+        levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
+        incomeIncreases: [60, 120, 180, 320, 550, 800, 1000, 1400, 2000, 5000]
+    },
+    {
+        name: "Card 8",
+        photo: 'img/монетка.png',
+        currentLevel: 0,
+        currentIncome: 0,
+        levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
+        incomeIncreases: [60, 120, 180, 320, 550, 800, 1000, 1400, 2000, 5000]
+    },
+    {
+        name: "Card 9",
+        photo: 'img/монетка.png',
+        currentLevel: 0,
+        currentIncome: 0,
+        levelUpCosts: [150, 250, 400, 4000, 6000, 9000, 15000, 23000, 51000, 211000],
+        incomeIncreases: [60, 120, 180, 320, 550, 800, 1000, 1400, 2000, 5000]
+    },
 ];
 
 if (arrString) {
@@ -61,21 +109,44 @@ if (arrString) {
 } else {
     // Если данных нет, создаем новый объект Map и задаем начальные значения
     arr = new Map();
-    arr
-        .set('balance', 4990)
-        .set('indexProgress', 0)
-        .set('profitTap', 1)
-        .set('moneyToUp', moneyToUpArr[arr.get('indexProgress')]) // начальное значение, можете заменить
-        .set('profitHour', calculateTotalIncome(initialCards))
-        .set('myLeague', leagues[arr.get('indexProgress')]) // начальное значение, можете заменить
-        .set('energy', 1000)
-        .set('energyLimit', 1000)
-        .set('cards', initialCards); // добавляем начальные значения карт
+}
+// Функция для установки базовых значений, если они отсутствуют
+const initializeDefaults = () => {
+    if (!arr.has('balance')) {
+        arr.set('balance', 4990);
+    }
+    if (!arr.has('indexProgress')) {
+        arr.set('indexProgress', 0);
+    }
+    if (!arr.has('profitTap')) {
+        arr.set('profitTap', 1);
+    }
+    if (!arr.has('moneyToUp')) {
+        arr.set('moneyToUp', moneyToUpArr[arr.get('indexProgress')]);
+    }
+    if (!arr.has('profitHour')) {
+        arr.set('profitHour', calculateTotalIncome(initialCards));
+    }
+    if (!arr.has('myLeague')) {
+        arr.set('myLeague', leagues[arr.get('indexProgress')]);
+    }
+    if (!arr.has('energy')) {
+        arr.set('energy', 1000);
+    }
+    if (!arr.has('energyLimit')) {
+        arr.set('energyLimit', 1000);
+    }
+    if (!arr.has('cards')) {
+        arr.set('cards', initialCards);
+    }
 
     // Преобразуем Map в объект и сохраняем в localStorage
     const obj = Object.fromEntries(arr);
     localStorage.setItem('arr', JSON.stringify(obj));
-}
+};
+
+// Инициализируем базовые значения, если они отсутствуют
+initializeDefaults();
 
 // Функция для получения карты по названию
 export function getCardByName(name) {
