@@ -55,7 +55,7 @@ const initialCards = [
     }
 ];
 
-if (arrString) {
+if (!arrString) {
     // Если данные есть, преобразуем их обратно в Map
     arr = new Map(Object.entries(JSON.parse(arrString)));
 } else {
